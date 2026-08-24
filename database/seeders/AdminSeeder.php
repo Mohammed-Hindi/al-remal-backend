@@ -16,6 +16,7 @@ class AdminSeeder extends Seeder
             'name' => 'Admin',
             'email' => 'admin@elremal.com',
             'password' => 'password123',
+            'role' => 'admin',
             'must_change_password' => false,
         ]);
     }

@@ -64,12 +64,13 @@ class AuthController extends Controller
             ]);
         }
 
-        $user->update([
-            'password' => $request->validated('new_password'),
-            'must_change_password' => false,
-        ]);
+        $user->password = $request->validated('new_password');
+        $user->must_change_password = false;
+        $user->save();
 
-        $user->tokens()->where('id', '!=', $request->user()->currentAccessToken()->id)->delete();
+        $user->tokens()
+            ->where('id', '!=', $request->user()->currentAccessToken()->id)
+            ->delete();
 
         return response()->json([
             'message' => 'تم تغيير كلمة المرور بنجاح',
